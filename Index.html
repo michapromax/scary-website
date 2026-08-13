@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>::. unindexed .:: [board_047]</title>
+<style>
+  body{
+    background:#000000;
+    color:#990000;
+    font-family: "Times New Roman", Times, serif;
+    margin:0;
+    padding:0;
+    font-size:14px;
+  }
+  a{ color:#ff0000; text-decoration:underline; }
+  a:visited{ color:#660000; }
+  a:hover{ color:#ff3333; }
+
+  table{ border-collapse:collapse; }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:0 8px 60px; }
+
+  .head{
+    text-align:center;
+    padding:14px 0 6px;
+  }
+  .head h1{
+    font-size:28px;
+    color:#ff0000;
+    margin:0;
+    font-weight:bold;
+  }
+
+  hr{
+    border:none;
+    border-top:1px solid #660000;
+    margin:10px 0;
+  }
+
+  .nav{
+    background:#0a0000;
+    border:1px solid #440000;
+    padding:4px 8px;
+    font-size:12px;
+    margin-bottom:10px;
+    font-family:"Courier New",monospace;
+  }
+  .nav a{ margin-right:10px; }
+
+  .box{
+    background:#0a0000;
+    border:1px solid #440000;
+    margin-bottom:14px;
+  }
+  .box-title{
+    background:#1a0000;
+    border-bottom:1px solid #440000;
+    color:#ff0000;
+    font-size:12px;
+    padding:4px 8px;
+    text-transform:uppercase;
+    font-family:"Courier New",monospace;
+  }
+  .box-body{ padding:10px 12px; font-family:"Courier New",monospace; font-size:12px; }
+
+  .countdown{
+    text-align:center;
+    padding:16px 0;
+  }
+  .countdown .clock{
+    font-family:"Courier New",monospace;
+    font-size:34px;
+    color:#ff0000;
+    margin:6px 0;
+  }
+
+  .thread{
+    display:table;
+    width:100%;
+    border-bottom:1px solid #220000;
+    padding:6px 0;
+  }
+  .thread:last-child{ border-bottom:none; }
+  .t-icon{
+    display:table-cell;
+    width:28px;
+    vertical-align:top;
+    font-size:16px;
+    color:#660000;
+    padding-right:6px;
+  }
+  .t-main{ display:table-cell; vertical-align:top; }
+  .t-title{
+    font-size:13px;
+    color:#cc0000;
+  }
+  .t-title .redact{
+    background:#330000;
+    color:transparent;
+    padding:0 3px;
+  }
+  .t-meta{
+    font-size:10px;
+    color:#660000;
+    margin-top:2px;
+  }
+
+  .file-row{
+    display:table;
+    width:100%;
+    border-bottom:1px dotted #220000;
+    padding:5px 0;
+    font-size:12px;
+  }
+  .f-name{ display:table-cell; width:55%; }
+  .f-name a{ font-family:monospace; }
+  .f-size{ display:table-cell; width:15%; color:#660000; }
+  .f-scan{ display:table-cell; width:30%; text-align:right; }
+  .scan-ok{ color:#990000; font-size:10px; }
+  .scan-warn{ color:#ff0000; font-size:10px; }
+
+  .error-line{
+    display:none;
+    font-family:monospace;
+    font-size:11px;
+    color:#ff0000;
+    background:#000;
+    border:1px solid #440000;
+    padding:4px 6px;
+    margin-top:3px;
+  }
+
+  .guestbook textarea{
+    width:100%;
+    background:#000;
+    color:#cc0000;
+    border:1px solid #440000;
+    font-family:monospace;
+    font-size:11px;
+    padding:4px;
+    height:44px;
+  }
+  .guestbook input[type=text]{
+    background:#000; color:#cc0000; border:1px solid #440000;
+    font-family:monospace; font-size:11px; padding:3px; width:150px;
+    margin-bottom:4px;
+  }
+  .gbtn{
+    background:#1a0000;
+    color:#ff0000;
+    border:1px solid #440000;
+    font-family:"Courier New",monospace;
+    font-size:11px;
+    padding:3px 10px;
+    cursor:pointer;
+  }
+
+  .entry{
+    border-top:1px dashed #220000;
+    padding:6px 0;
+    font-size:12px;
+  }
+  .entry .who{ color:#660000; font-size:10px; }
+
+  .footer{
+    text-align:center;
+    font-size:9px;
+    color:#440000;
+    padding:20px 0 10px;
+    font-family:"Courier New",monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="head">
+    <h1>board_047 <span style="font-size:14px;color:#660000;">/// untitled</span></h1>
+  </div>
+
+  <div class="nav">
+    <a href="#threads">threads</a>
+    <a href="#files">files</a>
+    <a href="#gb">entries</a>
+    <a href="#" onclick="return false;" style="color:#660000;">rules (missing)</a>
+  </div>
+
+  <div class="box countdown">
+    <div class="clock" id="clock">--:--:--:--</div>
+  </div>
+
+  <div class="box" id="threads">
+    <div class="box-title">recent — sorted by nothing</div>
+    <div class="box-body" id="threadList"></div>
+  </div>
+
+  <div class="box" id="files">
+    <div class="box-title">shared files — scan before opening</div>
+    <div class="box-body" id="fileList"></div>
+  </div>
+
+  <div class="box" id="gb">
+    <div class="box-title">leave something</div>
+    <div class="box-body guestbook">
+      <input type="text" id="gbName" placeholder="name (optional)"><br>
+      <textarea id="gbText" placeholder=""></textarea><br><br>
+      <button class="gbtn" id="gbSubmit">post</button>
+      <div id="gbList"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    generated 199?-??-?? &middot; mirrored ?x
+  </div>
+
+</div>
+
+<script>
+  // ---------- real browser alert ----------
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{ alert('site unsecure'); }, 900);
+  });
+
+  // ---------- countdown to an unlabeled target ----------
+  const clockEl = document.getElementById('clock');
+  const targetOffsetMs = (6*3600 + Math.random()*84*3600) * 1000;
+  const target = Date.now() + targetOffsetMs;
+
+  function pad2(n){ return n.toString().padStart(2,'0'); }
+  function updateClock(){
+    let diff = target - Date.now();
+    if(diff < 0) diff = 0;
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    clockEl.textContent = `${pad2(d)}:${pad2(h)}:${pad2(m)}:${pad2(s)}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ---------- thread list ----------
+  const threadTitles = [
+    'the door count is off by',
+    're: nobody replied to',
+    '[unreadable] — do not',
+    'still hearing it through',
+    'does anyone else get',
+    're: re: re: it stopped when',
+    'found this taped to the',
+    '████ was here first',
+    'why does the timestamp say',
+    'if you can read this it means'
+  ];
+  const threadListEl = document.getElementById('threadList');
+  threadTitles.forEach((t,i)=>{
+    const rep = Math.floor(Math.random()*40);
+    const days = Math.floor(Math.random()*300)+1;
+    const row = document.createElement('div');
+    row.className = 'thread';
+    row.innerHTML = `
+      <div class="t-icon">${Math.random()<0.5?'▣':'▢'}</div>
+      <div class="t-main">
+        <div class="t-title">${t} <span class="redact">${'x'.repeat(3+Math.floor(Math.random()*6))}</span></div>
+        <div class="t-meta">${days}d ago &middot; ${rep} replies &middot; last: anon${Math.floor(Math.random()*999)}</div>
+      </div>`;
+    threadListEl.appendChild(row);
+  });
+
+  // ---------- fake file downloads: click => error, no real download ----------
+  const files = [
+    { name:'archive_0{n}.rar', size:()=> (Math.random()*900+10).toFixed(1)+'MB' },
+    { name:'notes_final_final.txt', size:()=> (Math.random()*20+1).toFixed(1)+'KB' },
+    { name:'IMG_{n}.jpg.exe', size:()=> (Math.random()*5+1).toFixed(1)+'MB' },
+    { name:'log_export.csv', size:()=> (Math.random()*300+5).toFixed(1)+'KB' },
+    { name:'untitled_{n}.mp4', size:()=> (Math.random()*1200+80).toFixed(1)+'MB' },
+    { name:'READ_ME_DO_NOT.pdf', size:()=> (Math.random()*3+0.5).toFixed(1)+'MB' },
+  ];
+  const errorCodes = [
+    'ERR_FILE_INCOMPLETE (0x8f2)',
+    'ERR_SOURCE_UNREACHABLE (0x104)',
+    'ERR_HASH_MISMATCH — file has changed since indexing',
+    'ERR_CONNECTION_RESET mid-transfer',
+    'ERR_UNKNOWN — no further information available',
+    'ERR_ACCESS_REVOKED (0x9a1)'
+  ];
+  const fileListEl = document.getElementById('fileList');
+  files.forEach((f,i)=>{
+    const n = Math.floor(Math.random()*9000)+1000;
+    const name = f.name.replace('{n}', n);
+    const size = f.size();
+    const scanBad = Math.random() < 0.4;
+    const row = document.createElement('div');
+    row.className = 'file-row';
+    row.innerHTML = `
+      <div class="f-name"><a href="#" data-idx="${i}">${name}</a></div>
+      <div class="f-size">${size}</div>
+      <div class="f-scan">${scanBad ? '<span class="scan-warn">flagged — open anyway?</span>' : '<span class="scan-ok">scan clean</span>'}</div>
+      <div class="error-line" id="err${i}"></div>
+    `;
+    fileListEl.appendChild(row);
+  });
+  fileListEl.addEventListener('click', (e)=>{
+    const a = e.target.closest('a[data-idx]');
+    if(!a) return;
+    e.preventDefault();
+    const idx = a.dataset.idx;
+    const errEl = document.getElementById('err'+idx);
+    const code = errorCodes[Math.floor(Math.random()*errorCodes.length)];
+    errEl.style.display = 'block';
+    errEl.textContent = '> ' + code;
+  });
+
+  // ---------- guestbook: shared across visitors via /api/guestbook (same-origin, no CORS issues) ----------
+  const gbList = document.getElementById('gbList');
+
+  function renderEntry(who, text){
+    const div = document.createElement('div');
+    div.className = 'entry';
+    div.innerHTML = `<div class="who">${escapeHtml(who) || 'anon'+Math.floor(Math.random()*9999)}</div><div>${escapeHtml(text)}</div>`;
+    gbList.appendChild(div);
+  }
+  function escapeHtml(s){
+    return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  async function loadEntries(){
+    gbList.innerHTML = '<div class="entry">loading...</div>';
+    try{
+      const res = await fetch('/api/guestbook');
+      if(!res.ok) throw new Error('bad response');
+      const entries = await res.json();
+      gbList.innerHTML = '';
+      if(!Array.isArray(entries) || entries.length === 0){
+        gbList.innerHTML = '<div class="entry">nothing here yet.</div>';
+      } else {
+        entries.forEach(e => renderEntry(e.who, e.text));
+      }
+    } catch(err){
+      gbList.innerHTML = '<div class="entry">could not load entries.</div>';
+    }
+  }
+  loadEntries();
+
+  document.getElementById('gbSubmit').addEventListener('click', async ()=>{
+    const name = document.getElementById('gbName').value.trim();
+    const text = document.getElementById('gbText').value.trim();
+    if(!text) return;
+    const btn = document.getElementById('gbSubmit');
+    btn.disabled = true;
+    try{
+      const res = await fetch('/api/guestbook', {
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify({ who:name, text })
+      });
+      if(!res.ok) throw new Error('failed');
+      document.getElementById('gbText').value = '';
+      await loadEntries();
+    } catch(err){
+      alert('could not post — ' + (err && err.message ? err.message : 'unknown error'));
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
